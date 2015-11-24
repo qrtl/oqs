@@ -45,3 +45,18 @@
 */
 }
 
+.icon-oqs-normal{
+  border-radius: 25%;
+  padding: 8px;
+  margin-bottom: 15px;
+  width: 100px;
+  hight: 165px;
+}
+
+.icon-oqs-small{
+  border-radius: 30%;
+  padding: 8px;
+  margin-bottom: 15px;
+  width: 70px;
+}
+
