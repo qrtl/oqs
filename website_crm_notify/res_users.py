@@ -15,7 +15,13 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import res_users
-import controllers
+from openerp.osv import osv, fields
+
+class res_users(osv.osv):
+    _inherit = 'res.users'
+
+    _columns = {
+        'receive_contact': fields.boolean('Receive Contact from Website', help="users who receive e-mail when contact form submitted from website"),
+    }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

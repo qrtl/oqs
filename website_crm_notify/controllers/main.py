@@ -15,17 +15,34 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class WebsiteForm(addons.website_form.controllers.main.WebsiteForm):
+import openerp
+#from openerp import SUPERUSER_ID
+#from openerp import http
+
+#from openerp.addons.website_form.controllers.main import WebsiteForm
+
+#class WebsiteForm(http.Controller):
+class WebsiteForm(openerp.addons.website_form.controllers.main.WebsiteForm):
 
     def insert_record(self, request, model, values, custom, meta=None):
-        res = super(WebsiteForm, self).insert_record(request, model, values, custom, meta)
+        record_id = super(WebsiteForm, self).insert_record(request, model, values, custom, meta)
 
-        dest_model = request.env[model.model]
-        message = "Contact Form Submitted"
-        partner_ids = [fid.id for fid in dest_model.message_follower_ids]
+#        context = {}
+#        context.get('default_team_id', None)
+#        team_obj = request.env['crm.team']
+#        team_id = team_obj._get_default_team_id(SUPERUSER_ID, context=context, user_id=SUPERUSER_ID)
 
-        dest_model.message_post(body=message, partner_ids=partner_ids)
+        follower_ids = [uid.id for uid in request.env['res.users'].browse() if uid.receive_contact ]
+        vals = {
+            'body': "Website Form Submitted",
+            'model': model.model,
+            'message_type': 'notification',
+            'res_id': record_id,
+            'partner_ids': follower_ids,
+        }
+        request.env['mail.message'].sudo().create(vals)
 
-        return res
+        return record_id
+#        return super(WebsiteForm, self).insert_record(request, model, values, custom, meta)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

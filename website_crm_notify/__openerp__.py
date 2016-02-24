@@ -28,6 +28,7 @@
 * Send notification email to followers when Lead/Oppotunity is created submitting form from website
     """,
     'data': [
+        'res_users_view.xml',
     ],
     'installable': True,
     'applitcation': False,
