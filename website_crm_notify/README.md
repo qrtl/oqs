@@ -5,7 +5,7 @@ Website CRM Notify
 This module provides the following functions:
 
 * When someone sends question or inquiry from `Contact us` page on website, <br>
-Sends an Email to both the company and sender for the purpose of nofitication and remainder.
+sends an Email to both the company and sender for the purpose of nofitication and reminder.
 
 This module depends on `wbsite_crm` module.
 
@@ -29,7 +29,7 @@ To configure this module,
 By default, Email is sent to the following addresses
 
 * of the company (for the purpose of notification)
-* the sender inputs (for the purpose of remainder)
+* the sender inputs (for the purpose of reminder)
 
 and the body of Email includes all the information the sender inputs (Name, Phone, Company and so on).
 
