@@ -16,33 +16,18 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import openerp
-#from openerp import SUPERUSER_ID
-#from openerp import http
+from openerp import SUPERUSER_ID
 
-#from openerp.addons.website_form.controllers.main import WebsiteForm
-
-#class WebsiteForm(http.Controller):
 class WebsiteForm(openerp.addons.website_form.controllers.main.WebsiteForm):
 
     def insert_record(self, request, model, values, custom, meta=None):
         record_id = super(WebsiteForm, self).insert_record(request, model, values, custom, meta)
 
-#        context = {}
-#        context.get('default_team_id', None)
-#        team_obj = request.env['crm.team']
-#        team_id = team_obj._get_default_team_id(SUPERUSER_ID, context=context, user_id=SUPERUSER_ID)
-
-        follower_ids = [uid.id for uid in request.env['res.users'].browse() if uid.receive_contact ]
-        vals = {
-            'body': "Website Form Submitted",
-            'model': model.model,
-            'message_type': 'notification',
-            'res_id': record_id,
-            'partner_ids': follower_ids,
-        }
-        request.env['mail.message'].sudo().create(vals)
+        cr, context = request.cr, request.context
+        local_context = context.copy()
+        template_id = request.registry['ir.model.data'].get_object_reference(cr, SUPERUSER_ID, 'website_crm_notify', 'website_crm_notify_mail')[1]
+        mail_id = request.registry['mail.template'].send_mail(cr, SUPERUSER_ID, template_id, int(record_id), context=local_context)
 
         return record_id
-#        return super(WebsiteForm, self).insert_record(request, model, values, custom, meta)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
