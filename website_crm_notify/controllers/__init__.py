@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-#    OpenERP, Open Source Management Solution
-#    Copyright (c) 2015 Rooms For (Hong Kong) Limited T/A OSCG
+#    Odoo, Open Source Management Solution
+#    Copyright (c) 2016 Rooms For (Hong Kong) Limited T/A OSCG
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
